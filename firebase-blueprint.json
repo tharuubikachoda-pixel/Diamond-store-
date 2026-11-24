@@ -1,0 +1,247 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Registered Diamond Store customer profile and wallet balance.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "email": { "type": "string", "format": "email", "minLength": 3, "maxLength": 254 },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "defaultUid": { "type": "string", "maxLength": 20 },
+        "recentUids": { "type": "array", "description": "Up to 5 recently used Free Fire numeric UIDs." },
+        "walletBalance": { "type": "number", "description": "Current wallet balance in NPR." },
+        "isBlocked": { "type": "boolean" },
+        "darkMode": { "type": "boolean" },
+        "language": { "type": "string", "enum": ["en", "ne"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "displayName", "phone", "defaultUid", "recentUids", "walletBalance", "isBlocked", "darkMode", "language", "createdAt", "updatedAt"]
+    },
+    "DiamondPackage": {
+      "title": "DiamondPackage",
+      "description": "Free Fire Nepal top-up package.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "category": { "type": "string", "enum": ["diamonds", "weekly", "monthly", "levelup"] },
+        "priceNpr": { "type": "number" },
+        "diamondAmount": { "type": "number" },
+        "bonusLabel": { "type": "string", "maxLength": 60 },
+        "popular": { "type": "boolean" },
+        "active": { "type": "boolean" },
+        "sortOrder": { "type": "number" },
+        "imageUrl": { "type": "string", "maxLength": 750000 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "category", "priceNpr", "diamondAmount", "bonusLabel", "popular", "active", "sortOrder", "updatedAt"]
+    },
+    "TopUpOrder": {
+      "title": "TopUpOrder",
+      "description": "Customer Free Fire diamond top-up order.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userEmail": { "type": "string", "format": "email", "minLength": 3, "maxLength": 254 },
+        "userName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "packageId": { "type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "packageName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "category": { "type": "string", "enum": ["diamonds", "weekly", "monthly", "levelup"] },
+        "amountNpr": { "type": "number" },
+        "playerUid": { "type": "string", "minLength": 5, "maxLength": 20, "pattern": "^[0-9]{5,20}$" },
+        "playerIgn": { "type": "string", "maxLength": 64 },
+        "playerRegion": { "type": "string", "maxLength": 16 },
+        "ignVerified": { "type": "boolean" },
+        "paymentMethod": { "type": "string", "enum": ["esewa", "khalti", "bank", "wallet"] },
+        "screenshotDataUrl": { "type": "string", "maxLength": 750000 },
+        "status": { "type": "string", "enum": ["pending", "processing", "completed", "cancelled", "rejected"] },
+        "adminNote": { "type": "string", "maxLength": 300 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "userEmail", "userName", "packageId", "packageName", "category", "amountNpr", "playerUid", "playerIgn", "playerRegion", "ignVerified", "paymentMethod", "screenshotDataUrl", "status", "adminNote", "createdAt", "updatedAt"]
+    },
+    "WalletTopUp": {
+      "title": "WalletTopUp",
+      "description": "User wallet load request awaiting admin verification.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userEmail": { "type": "string", "format": "email", "minLength": 3, "maxLength": 254 },
+        "userName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "amountNpr": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["esewa", "khalti", "bank"] },
+        "screenshotDataUrl": { "type": "string", "minLength": 1, "maxLength": 750000 },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "adminNote": { "type": "string", "maxLength": 300 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "userEmail", "userName", "amountNpr", "paymentMethod", "screenshotDataUrl", "status", "adminNote", "createdAt", "updatedAt"]
+    },
+    "WalletTransaction": {
+      "title": "WalletTransaction",
+      "description": "Immutable wallet ledger transaction.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "type": { "type": "string", "enum": ["credit", "debit"] },
+        "amountNpr": { "type": "number" },
+        "description": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "referenceId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "type", "amountNpr", "description", "referenceId", "createdAt"]
+    },
+    "SupportTicket": {
+      "title": "SupportTicket",
+      "description": "Customer support ticket thread.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userEmail": { "type": "string", "format": "email", "minLength": 3, "maxLength": 254 },
+        "userName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "subject": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "category": { "type": "string", "enum": ["order", "payment", "wallet", "account", "other"] },
+        "status": { "type": "string", "enum": ["open", "answered", "closed"] },
+        "lastMessage": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "userEmail", "userName", "subject", "category", "status", "lastMessage", "createdAt", "updatedAt"]
+    },
+    "SupportMessage": {
+      "title": "SupportMessage",
+      "description": "Message inside a support ticket.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "ticketOwnerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "senderId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "senderEmail": { "type": "string", "format": "email", "minLength": 3, "maxLength": 254 },
+        "senderRole": { "type": "string", "enum": ["user", "admin"] },
+        "text": { "type": "string", "maxLength": 1500 },
+        "attachmentDataUrl": { "type": "string", "maxLength": 750000 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "ticketOwnerId", "senderId", "senderEmail", "senderRole", "text", "attachmentDataUrl", "createdAt"]
+    },
+    "StoreSettings": {
+      "title": "StoreSettings",
+      "description": "Public store configuration managed by admin.",
+      "type": "object",
+      "properties": {
+        "esewaId": { "type": "string", "minLength": 5, "maxLength": 40 },
+        "khaltiId": { "type": "string", "minLength": 5, "maxLength": 40 },
+        "whatsappNumber": { "type": "string", "minLength": 5, "maxLength": 30 },
+        "bankName": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "bankAccountNumber": { "type": "string", "minLength": 5, "maxLength": 40 },
+        "bankAccountName": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "supportEmail": { "type": "string", "format": "email", "minLength": 3, "maxLength": 254 },
+        "esewaQrImageUrl": { "type": "string", "maxLength": 750000 },
+        "themeImageUrl": { "type": "string", "maxLength": 750000 },
+        "maintenanceMode": { "type": "boolean" },
+        "maintenanceMessage": { "type": "string", "maxLength": 300 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["esewaId", "khaltiId", "whatsappNumber", "bankName", "bankAccountNumber", "bankAccountName", "supportEmail", "maintenanceMode", "maintenanceMessage", "updatedAt"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Storewide offers and announcements.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "message": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "badge": { "type": "string", "maxLength": 40 },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "message", "badge", "active", "createdAt"]
+    },
+    "NotificationItem": {
+      "title": "NotificationItem",
+      "description": "User-targeted or global notification.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "body": { "type": "string", "minLength": 1, "maxLength": 400 },
+        "type": { "type": "string", "enum": ["order", "wallet", "offer", "system"] },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "title", "body", "type", "read", "createdAt"]
+    },
+    "ActivityLog": {
+      "title": "ActivityLog",
+      "description": "Admin audit trail record.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "adminEmail": { "type": "string", "format": "email", "minLength": 3, "maxLength": 254 },
+        "action": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "targetType": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "targetId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "details": { "type": "string", "maxLength": 400 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "adminEmail", "action", "targetType", "targetId", "details", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Customer profiles, recent UIDs, preferences, and wallet balance."
+    },
+    "/packages/{packageId}": {
+      "schema": { "$ref": "#/entities/DiamondPackage" },
+      "description": "26 default Free Fire NP diamond and membership packages."
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/TopUpOrder" },
+      "description": "Diamond top-up orders with payment screenshot and status timeline."
+    },
+    "/wallet_topups/{topupId}": {
+      "schema": { "$ref": "#/entities/WalletTopUp" },
+      "description": "Wallet load requests with payment proof."
+    },
+    "/wallet_transactions/{txId}": {
+      "schema": { "$ref": "#/entities/WalletTransaction" },
+      "description": "Immutable wallet credit and debit history."
+    },
+    "/support_tickets/{ticketId}": {
+      "schema": { "$ref": "#/entities/SupportTicket" },
+      "description": "Support tickets opened by users."
+    },
+    "/support_tickets/{ticketId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/SupportMessage" },
+      "description": "Live chat messages and image attachments inside a support ticket."
+    },
+    "/store_settings/{settingId}": {
+      "schema": { "$ref": "#/entities/StoreSettings" },
+      "description": "Storewide eSewa, Khalti, Bank, WhatsApp, and Maintenance Mode settings."
+    },
+    "/announcements/{announcementId}": {
+      "schema": { "$ref": "#/entities/Announcement" },
+      "description": "Admin-broadcast offers and announcements."
+    },
+    "/notifications/{notifId}": {
+      "schema": { "$ref": "#/entities/NotificationItem" },
+      "description": "User and broadcast notifications."
+    },
+    "/activity_logs/{logId}": {
+      "schema": { "$ref": "#/entities/ActivityLog" },
+      "description": "Admin activity audit log."
+    }
+  }
+}

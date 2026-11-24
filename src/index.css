@@ -1,0 +1,101 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-display: "Outfit", system-ui, sans-serif;
+    --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-mono-num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes welcome-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes welcome-backdrop-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes welcome-card-in {
+  0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+  70% { opacity: 1; transform: scale(1.015) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes welcome-card-out {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to { opacity: 0; transform: scale(0.94) translateY(-12px); }
+}
+
+@keyframes welcome-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes welcome-aura-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes welcome-crest-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes welcome-progress-shrink {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+.animate-welcome-backdrop-in {
+  animation: welcome-backdrop-in 0.32s ease-out both;
+}
+
+.animate-welcome-backdrop-out {
+  animation: welcome-backdrop-out 0.28s ease-in both;
+}
+
+.animate-welcome-card-in {
+  animation: welcome-card-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-welcome-card-out {
+  animation: welcome-card-out 0.26s ease-in both;
+}
+
+.animate-welcome-copy-in {
+  animation: welcome-fade-up 0.36s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;
+}
+
+.animate-welcome-cta-in {
+  animation: welcome-fade-up 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+}
+
+.animate-welcome-aura-spin {
+  animation: welcome-aura-spin 10s linear infinite;
+}
+
+.animate-welcome-crest-float {
+  animation: welcome-crest-float 2.4s ease-in-out infinite;
+}
+
+.animate-welcome-progress {
+  animation: welcome-progress-shrink 3.8s linear both;
+}
+

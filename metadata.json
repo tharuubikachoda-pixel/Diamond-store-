@@ -1,0 +1,6 @@
+{
+  "name": "Diamond Store",
+  "description": "Free Fire Nepal (NP) diamond top-up store with instant UID verification, eSewa, Khalti, Bank Transfer, Wallet checkout, order tracking, and admin console.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
